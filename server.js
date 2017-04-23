@@ -4,17 +4,18 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const Promise = require('bluebird');
+const dotenv = require('dotenv');
 const debug = require('debug')('publication-platform-backend:server');
 
 const errors = require('./lib/error-middleware.js');
 
-const PORT = process.env.PORT || 8000;
+dotenv.load();
 
-mongoose.Promise = Promise;
+const PORT = process.env.PORT || 8000;
+const app = express();
+
 mongoose.connect(process.env.MONGODB_URI);
 
-const app = express();
 app.use(cors());
 app.use(morgan('dev'));
 
