@@ -12,7 +12,7 @@ const authRouter = module.exports = Router();
 authRouter.post('/api/create-admin', jsonParser, function(req, res, next) {
   debug('POST: /api/create-admin');
 
-  if (!req.body.email || !req.body.password) {
+  if (!req.body.name || !req.body.email || !req.body.password) {
     res.status(400).send();
     return;
   }
@@ -29,10 +29,10 @@ authRouter.post('/api/create-admin', jsonParser, function(req, res, next) {
   .catch(next);
 });
 
-authRouter.get('/api/admin-signin', basicAuth, function(req, res, next) {
-  debug('GET: /api/admin-signin');
+authRouter.get('/api/admin-login', basicAuth, function(req, res, next) {
+  debug('GET: /api/admin-login');
 
-  User.findOne({username: req.auth.username})
+  User.findOne({email: req.auth.email})
   .then(user => user.comparePasswordHash(req.auth.password))
   .then(user => user.generateToken())
   .then(token => res.send(token))

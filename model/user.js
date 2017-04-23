@@ -9,6 +9,7 @@ const Promise = require('bluebird');
 const debug = require('debug')('publication-platform-backend:user');
 
 const schema = new mongoose.Schema({
+  name: {type: String, required: true},
   email: {type: String, required: true, unique: true},
   password: {type: String, required: true},
   findHash: {type: String, unique: true}
