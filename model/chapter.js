@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const schema = new mongoose.Schema({
   title: {type: String, required: true},
   body: {type: String, required: true},
-  timestamp: {type: Date, required: true},
+  timestamp: {type: Date, default: Date.now},
   manuscriptID: {type: mongoose.Schema.Types.ObjectId, required: true}
 });
 
