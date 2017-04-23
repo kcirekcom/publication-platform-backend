@@ -28,6 +28,7 @@ manuscriptRouter.get('/api/manuscript/:id', bearerAuth, function(req, res, next)
   debug('GET: /api/manuscript/:id');
 
   Manuscript.findById(req.params.id)
+  .populate('chapters')
   .then(manuscript => {
     if (manuscript.userID.toString() !== req.user._id.toString()) {
       return next(createError(401, 'invalid user'));
@@ -46,6 +47,7 @@ manuscriptRouter.put('/api/manuscript/:id', bearerAuth, jsonParser, function(req
   }
 
   Manuscript.findByIdAndUpdate(req.params.id, req.body, {new: true})
+  .populate('chapters')
   .then(manuscript => {
     if (manuscript.userID.toString() !== req.user._id.toString()) {
       return next(createError(401, 'invalid user'));

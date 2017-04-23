@@ -8,6 +8,7 @@ const dotenv = require('dotenv');
 const debug = require('debug')('publication-platform-backend:server');
 
 const manuscriptRouter = require('./route/manuscript-router.js');
+const chapterRouter = require('./route/chapter-router.js');
 const errors = require('./lib/error-middleware.js');
 
 dotenv.load();
@@ -21,6 +22,7 @@ app.use(cors());
 app.use(morgan('dev'));
 
 app.use(manuscriptRouter);
+app.use(chapterRouter);
 app.use(errors);
 
 app.listen(PORT, () => {
