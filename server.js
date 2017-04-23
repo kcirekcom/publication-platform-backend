@@ -9,11 +9,10 @@ const debug = require('debug')('publication-platform-backend:server');
 
 const errors = require('./lib/error-middleware.js');
 
-const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/publication-platform-backend';
+const PORT = process.env.PORT || 8000;
 
 mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI);
 
 const app = express();
 app.use(cors());
