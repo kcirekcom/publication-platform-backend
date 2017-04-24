@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 const createError = require('http-errors');
-const debug = require('debug')('chapter:manuscript');
+const debug = require('debug')('publication-platform-backend:manuscript');
 
 const schema = new mongoose.Schema({
   title: {type: String, required: true},

@@ -19,6 +19,7 @@ chapterRouter.post('/api/manuscript/:manuscriptID/chapter', bearerAuth, jsonPars
   .catch(next);
 });
 
+<<<<<<< HEAD
 chapterRouter.get('/api/chapters', function(req, res, next) {
   debug('GET: /api/chapters');
 
@@ -32,6 +33,8 @@ chapterRouter.get('/api/chapters', function(req, res, next) {
   .catch(next);
 });
 
+=======
+>>>>>>> master
 chapterRouter.get('/api/chapter/:id', bearerAuth, function(req, res, next) {
   debug('GET: /api/chapter/:id');
 
