@@ -19,7 +19,7 @@ chapterRouter.post('/api/manuscript/:manuscriptID/chapter', bearerAuth, jsonPars
   .catch(next);
 });
 
-chapterRouter.get('/api/chapter/:id', function(req, res, next) {
+chapterRouter.get('/api/chapter/:id', bearerAuth, function(req, res, next) {
   debug('GET: /api/chapter/:id');
 
   Chapter.findById(req.params.id)
@@ -27,7 +27,7 @@ chapterRouter.get('/api/chapter/:id', function(req, res, next) {
   .catch(err => next(createError(404, err.message)));
 });
 
-chapterRouter.put('/api/chapter/:id', jsonParser, function(req, res, next) {
+chapterRouter.put('/api/chapter/:id', bearerAuth, jsonParser, function(req, res, next) {
   debug('PUT: /api/chapter/:id');
 
   req.body.timestamp = new Date();
@@ -36,7 +36,7 @@ chapterRouter.put('/api/chapter/:id', jsonParser, function(req, res, next) {
   .catch(err => next(createError(404, err.message)));
 });
 
-chapterRouter.delete('/api/chapter/:id', function(req, res, next) {
+chapterRouter.delete('/api/chapter/:id', bearerAuth, function(req, res, next) {
   debug('DELETE: /api/chapter/:id');
 
   Chapter.findByIdAndRemove(req.params.id)
