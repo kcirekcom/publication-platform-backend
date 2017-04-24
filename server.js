@@ -7,6 +7,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const debug = require('debug')('publication-platform-backend:server');
 
+const authRouter = require('./route/auth-router.js');
 const manuscriptRouter = require('./route/manuscript-router.js');
 const chapterRouter = require('./route/chapter-router.js');
 const errors = require('./lib/error-middleware.js');
@@ -21,6 +22,7 @@ mongoose.connect(process.env.MONGODB_URI);
 app.use(cors());
 app.use(morgan('dev'));
 
+app.use(authRouter);
 app.use(manuscriptRouter);
 app.use(chapterRouter);
 app.use(errors);
