@@ -19,6 +19,22 @@ chapterRouter.post('/api/manuscript/:manuscriptID/chapter', bearerAuth, jsonPars
   .catch(next);
 });
 
+<<<<<<< HEAD
+chapterRouter.get('/api/chapters', function(req, res, next) {
+  debug('GET: /api/chapters');
+
+
+  Chapter.find({})
+  .then(chapters => {
+    console.log(chapters);
+    if (chapters === null) return next(createError(404, 'no chapters found'));
+    res.json(chapters);
+  })
+  .catch(next);
+});
+
+=======
+>>>>>>> master
 chapterRouter.get('/api/chapter/:id', bearerAuth, function(req, res, next) {
   debug('GET: /api/chapter/:id');
 
