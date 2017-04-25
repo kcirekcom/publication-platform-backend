@@ -32,7 +32,7 @@ chapterRouter.get('/api/chapters', function(req, res, next) {
 });
 
 chapterRouter.get('/api/manuscript/:manuscriptID/chapter', bearerAuth, function(req, res, next) {
-  debug('GET: /api/chapter/:id');
+  debug('GET: /api/manuscript/:manuscriptID/chapter');
 
   Chapter.findById(req.params.manuscriptID)
   .then(chapters => res.json(chapters))
