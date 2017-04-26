@@ -8,7 +8,7 @@ const schema = new mongoose.Schema({
   title: {type: String, required: true},
   desc: {type: String, required: true},
   timestamp: {type: Date, default: Date.now},
-  chapters: [{type: mongoose.Schema.Types.ObjectId, ref: 'chapter'}],
+  chapters: [{type: mongoose.Schema.Types.ObjectId, ref: 'Chapter'}],
   userID: {type: mongoose.Schema.Types.ObjectId, required: true}
 });
 
