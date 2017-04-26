@@ -24,6 +24,18 @@ manuscriptRouter.post('/api/manuscript', bearerAuth, jsonParser, function(req, r
   .catch(next);
 });
 
+manuscriptRouter.get('/api/manuscript', function(req, res, next) {
+  debug('GET: /api/manuscript');
+
+  Manuscript.find({})
+  .populate('chapters')
+  .then(manuscripts => {
+    if(manuscripts === null) return next(createError(404, 'no posts found'));
+    res.json(manuscripts);
+  })
+  .catch(next);
+});
+
 manuscriptRouter.get('/api/manuscript/:id', bearerAuth, function(req, res, next) {
   debug('GET: /api/manuscript/:id');
 
@@ -68,4 +80,14 @@ manuscriptRouter.delete('/api/manuscript/:id', bearerAuth, function(req, res, ne
     res.status(204).send();
   })
   .catch(next);
+});
+
+manuscriptRouter.get('/api/user/:id/manuscript', bearerAuth, function(req, res, next){
+  debug('GET: /api/user/:id/manuscript');
+
+  Manuscript.findOne({userID: req.params.id})
+  .then(manuscript => {
+    res.json(manuscript);
+  })
+  .catch(err => next(createError(404, err.message)));
 });

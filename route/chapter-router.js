@@ -6,7 +6,7 @@ const createError = require('http-errors');
 const debug = require('debug')('publication-platform-backend:chapter-router');
 
 const Manuscript = require('../model/manuscript.js');
-const Chapter = require('../model/manuscript.js');
+const Chapter = require('../model/chapter.js');
 const bearerAuth = require('../lib/bearer-auth-middleware.js');
 
 const chapterRouter = module.exports = Router();
@@ -14,7 +14,17 @@ const chapterRouter = module.exports = Router();
 chapterRouter.post('/api/manuscript/:manuscriptID/chapter', bearerAuth, jsonParser, function(req, res, next) {
   debug('POST: /api/manuscript/:manuscriptID/chapter');
 
-  Manuscript.findByIdAndAddChapter(req.params.manuscriptID, req.body)
+  // Manuscript.findByIdAndAddChapter(req.params.manuscriptID, req.body)
+  // .then(chapter => res.json(chapter))
+  // .catch(next);
+
+  Manuscript.findById(req.params.id)
+  .then(manuscript => {
+    const chapter = new Chapter(req.body);
+    chapter.save();
+    manuscript.chapters.push(chapter._id);
+    manuscript.save();
+  })
   .then(chapter => res.json(chapter))
   .catch(next);
 });
