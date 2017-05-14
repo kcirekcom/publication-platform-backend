@@ -14,17 +14,7 @@ const chapterRouter = module.exports = Router();
 chapterRouter.post('/api/manuscript/:manuscriptID/chapter', bearerAuth, jsonParser, function(req, res, next) {
   debug('POST: /api/manuscript/:manuscriptID/chapter');
 
-  // Manuscript.findByIdAndAddChapter(req.params.manuscriptID, req.body)
-  // .then(chapter => res.json(chapter))
-  // .catch(next);
-
-  Manuscript.findById(req.params.id)
-  .then(manuscript => {
-    const chapter = new Chapter(req.body);
-    chapter.save();
-    manuscript.chapters.push(chapter._id);
-    manuscript.save();
-  })
+  Manuscript.findByIdAndAddChapter(req.params.manuscriptID, req.body)
   .then(chapter => res.json(chapter))
   .catch(next);
 });
