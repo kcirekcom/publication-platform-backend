@@ -24,7 +24,6 @@ chapterRouter.get('/api/chapters', function(req, res, next) {
 
   Chapter.find({})
   .then(chapters => {
-    console.log(chapters);
     if (chapters === null) return next(createError(404, 'no chapters found'));
     res.json(chapters);
   })
