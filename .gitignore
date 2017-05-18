@@ -113,4 +113,3 @@ jspm_packages
 .yarn-integrity
 
 .env
-.travis.yml
