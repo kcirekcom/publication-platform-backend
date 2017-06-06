@@ -41,7 +41,7 @@ chapterRouter.get('/api/manuscript/:manuscriptID/chapter', bearerAuth, function(
 chapterRouter.put('/api/manuscript/:manuscriptID/chapter/:chapterID', bearerAuth, jsonParser, function(req, res, next) {
   debug('PUT: /api/manuscript/:manuscriptID/chapter/:chapterID');
 
-  req.body.timestamp = new Date();
+  // req.body.timestamp = new Date();
   Chapter.findByIdAndUpdate(req.params.chapterID, req.body, {new: true})
   .then(chapter => res.json(chapter))
   .catch(err => next(createError(404, err.message)));
