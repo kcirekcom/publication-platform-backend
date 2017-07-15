@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const debug = require('debug')('publication-platform-backend:server');
+const compression = require('compression');
 
 const authRouter = require('./route/auth-router.js');
 const manuscriptRouter = require('./route/manuscript-router.js');
@@ -18,6 +19,8 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 
 mongoose.connect(process.env.MONGODB_URI);
+
+app.use(compression());
 
 app.use(cors());
 app.use(morgan('dev'));
