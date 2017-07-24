@@ -4,6 +4,7 @@ const jsonParser = require('body-parser').json();
 const debug = require('debug')('publication-platform-backend:auth-router');
 const Router = require('express').Router;
 const basicAuth = require('../lib/basic-auth-middleware.js');
+const createError = require('http-errors');
 
 const User = require('../model/user.js');
 
@@ -33,7 +34,10 @@ authRouter.get('/api/admin-login', basicAuth, function(req, res, next) {
   debug('GET: /api/admin-login');
 
   User.findOne({email: req.auth.email})
-  .then(user => user.comparePasswordHash(req.auth.password))
+  .then(user => {
+    if (user === null) return next(createError(401, 'email required'));
+    return user.comparePasswordHash(req.auth.password);
+  })
   .then(user => user.generateToken())
   .then(token => res.send(token))
   .catch(next);
