@@ -72,11 +72,21 @@ manuscriptRouter.put('/api/manuscript/:id', bearerAuth, jsonParser, function(req
 manuscriptRouter.delete('/api/manuscript/:id', bearerAuth, function(req, res, next) {
   debug('DELETE: /api/manuscript/:id');
 
+  Manuscript.findById(req.params.id)
+  .populate('chapters')
+  .then((manuscript) => {
+    manuscript.chapters.forEach(chapter => {
+      chapter.remove();
+    });
+  })
+  .catch(next);
+
   Manuscript.findByIdAndRemove(req.params.id)
   .then(manuscript => {
     if (manuscript.userID.toString() !== req.user._id.toString()) {
       return next(createError(401, 'invalid user'));
     }
+
     res.status(204).send();
   })
   .catch(next);
